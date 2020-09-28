@@ -5,24 +5,23 @@ import java.util.Scanner;
 public class FLJ_PFC {  
 // Fonction de détermination du jeu de l'IA :
   public static String choixIA(){
-    String c = " "; 
+    String ci = ""; 
     double x = Math.random();
     if ((x<=0.33)){
-      c = "Pierre";
+      ci = "Pierre";
     }
     else if ((x>0.33) && (x<=0.66)){
-      c = "Feuille";
+      ci = "Feuille";
     }
-    else if ((x>0.66) && (x<1)){
-      c = "Ciseaux";
+    else{
+      ci = "Ciseaux";
     }
-    return c;
+    return ci;
   }
   
-// Fonction renvoyant le mot correspondant à l'entier entré par le joueur : 
+// Fonction renvoyant le mot correspondant à l'entier entré par le joueur (pour affichage) : 
   public static String choixJoueur(int jj){
-    String cj = ""; 
-    
+    String cj = "";   
     if (jj == 1) {
       cj = "Pierre";
     }
@@ -31,16 +30,13 @@ public class FLJ_PFC {
     }
     else if (jj == 3) {
       cj = "Ciseaux";
-    }
-    
+    }    
     return cj; 
   }
-  
   
 // Fonction du duel, renvoyant le point si le joueur gagne :  
   public static int duel(String ci, int cj){
     int pj = 0;
-    
     // Si victoire du joueur : 
     if ((ci == "Pierre") && (cj == 2)) {
       pj = 2;
@@ -51,7 +47,6 @@ public class FLJ_PFC {
     else if ((ci == "Ciseaux") && (cj == 1)) {
       pj = 2;
     }
-    
     // si Ex aequo : 
     else if ((ci == "Ciseaux") && (cj == 3)) {
       pj = 1;
@@ -62,16 +57,14 @@ public class FLJ_PFC {
     else if ((ci == "Feuille") && (cj == 2)) {
       pj = 1;
     }
-    
     return pj;
   }
-  
-  
-  
-  
+ 
   public static void main(String[] args) { 
 // Initialisation, paramètres de départ : 
-    int pot = 0;                // compteur du pot de mise
+    int pot = 0;                  // compteur du pot de mise
+    int potinit = 0;			  // pot de départ
+    int tour = 0;				  // nombre de tour(s)
     int mise = 0;                 // compteur de la mise du joueur
     int pj = 0;                   // compteur de point(s) du joueur
     String result = " ";          // variable contenant le résultat de la manche (gagné ou perdu)
@@ -83,42 +76,85 @@ public class FLJ_PFC {
     int duel = 0;
     Scanner clavier = new Scanner(System.in);
 
-    
-    
     System.out.println("");
     System.out.println("************************************");
     System.out.println("*    PIERRE - FEUILLE - CISEAUX    *");
     System.out.println("************************************");
     System.out.println("");
     
-    System.out.println("Combien de jetons possédez-vous (pot de mise) ?");
-    int potinit = clavier.nextInt(); // pot initial = valeur de départ du pot
+    boolean chiffre = false;
+    while(!chiffre) {
+    	System.out.println("Combien de jetons possédez-vous (pot de mise) ?");
+    	if(clavier.hasNextInt()) {
+      		potinit = clavier.nextInt();  
+       		chiffre = true;
+            if(potinit <=0) {
+                System.out.println("Le pot ne peut être négatif.");
+                chiffre = false;       
+            }
+    	} else {
+    		System.out.println("Il fallait entrer un chiffre.");
+        	clavier.next();
+    	}
+    }
     pot = potinit;
-    System.out.println("En combien de tours se jouera la partie ?");
-    int tour = clavier.nextInt();   
-    
+    chiffre = false;
+    while(!chiffre) {
+    	System.out.println("En combien de tours se jouera la partie ?");
+    	if(clavier.hasNextInt()) {
+    		tour = clavier.nextInt();   
+    		chiffre = true;
+    		if(tour <=0) {
+                System.out.println("Nombre de tour impossible.");
+                chiffre = false;       
+            }
+    	} else {
+    		System.out.println("Il fallait entrer un chiffre.");
+        	clavier.next();
+    	}
+    }
     
 // Début de la partie : 
     for (;;){      
       if (manchenum == 0) { 
         System.out.println("");
-        System.out.println((manchenum+1) + "e manche !");
-        System.out.println("Vous disposez de " + pot + " jetons dans le pot de mise. Combien souhaitez-vous miser ?");
-        mise = clavier.nextInt();      
-        
-        while (mise > pot) {
-          System.out.println("La mise est supérieure à vos moyens, retentez :");
-          mise = clavier.nextInt();          
+        System.out.println("1e manche !");
+        chiffre = false;
+        while(!chiffre) {
+        	System.out.println("Vous disposez de " + pot + " jetons dans le pot de mise. Combien souhaitez-vous miser ?");
+        	if(clavier.hasNextInt()) {
+        		mise = clavier.nextInt();  
+        		chiffre = true;
+                if(mise > pot) {
+                    System.out.println("La mise est supérieure à vos moyens.");
+                    chiffre = false;      
+                }
+                if(mise <= 0) {
+                    System.out.println("Vous ne pouvez pas miser si peu.");
+                    chiffre = false;       
+                }
+        	} else {
+        		System.out.println("Il fallait entrer un chiffre.");
+            	clavier.next();
+        	}
         }
-        while (mise <=0 ) {
-            System.out.println("Vous ne pouvez pas miser si peu, retentez :");
-            mise = clavier.nextInt();          
-        }
-        
-        ci = choixIA();  // ci pour choix de l'IA
-        
-        System.out.println("Pierre (tapez 1), Feuille (tapez 2) ou Ciseaux (tapez 3) ?"); 
-        jj = clavier.nextInt();
+    
+        ci = choixIA();  // ci pour choix de l'IA 
+        chiffre = false;
+        while(!chiffre) {
+        	System.out.println("Pierre (tapez 1), Feuille (tapez 2) ou Ciseaux (tapez 3) ?");
+        	if(clavier.hasNextInt()) {
+        		jj = clavier.nextInt();  
+        		chiffre = true;
+                if(jj<1 || jj>3) {
+                    System.out.println("Entrée incorrecte.");
+                    chiffre = false;      
+                }
+        	} else {
+        		System.out.println("Il fallait entrer un chiffre.");
+            	clavier.next();
+        	}
+        }      
         cj = choixJoueur(jj); // jj pour jeu joueur
         
         System.out.println("");          
@@ -192,21 +228,42 @@ public class FLJ_PFC {
           for (int i = 0; i <= bouclerepet; i++){  
             System.out.println("");
             System.out.println((manchenum+1) + "e manche !");
-            System.out.println("Vous disposez de " + pot + " jetons dans le pot de mise. Combien souhaitez-vous miser ?");
-            mise = clavier.nextInt();      
-            
-            while (mise > pot) {
-              System.out.println("La mise est supérieure à vos moyens, retentez :");
-              mise = clavier.nextInt();          
-            }
-            while (mise <=0 ) {
-                System.out.println("Vous ne pouvez pas miser si peu, retentez :");
-                mise = clavier.nextInt();          
+            chiffre = false;
+            while(!chiffre) {
+            	System.out.println("Vous disposez de " + pot + " jetons dans le pot de mise. Combien souhaitez-vous miser ?");
+            	if(clavier.hasNextInt()) {
+            		mise = clavier.nextInt();  
+            		chiffre = true;
+                    if(mise > pot) {
+                        System.out.println("La mise est supérieure à vos moyens.");
+                        chiffre = false;      
+                    }
+                    if(mise <= 0) {
+                        System.out.println("Vous ne pouvez pas miser si peu.");
+                        chiffre = false;       
+                    }
+            	} else {
+            		System.out.println("Il fallait entrer un chiffre.");
+                	clavier.next();
+            	}
             }
             
             // ici on ne tire plus le jeu de l'IA grâce à la fonction, mais "ci" conserve la valeur du tour précédent
-            System.out.println("Pierre (tapez 1), Feuille (tapez 2) ou Ciseaux (tapez 3) ?"); 
-            jj = clavier.nextInt();
+            chiffre = false;
+            while(!chiffre) {
+            	System.out.println("Pierre (tapez 1), Feuille (tapez 2) ou Ciseaux (tapez 3) ?");
+            	if(clavier.hasNextInt()) {
+            		jj = clavier.nextInt();  
+            		chiffre = true;
+                    if(jj<1 || jj>3) {
+                        System.out.println("Entrée incorrecte.");
+                        chiffre = false;      
+                    }
+            	} else {
+            		System.out.println("Il fallait entrer un chiffre.");
+                	clavier.next();
+            	}
+            }      
             cj = choixJoueur(jj);
             
             System.out.println("");          
@@ -269,21 +326,43 @@ public class FLJ_PFC {
         else if (x>0.2) {
           System.out.println("");
           System.out.println((manchenum+1) + "e manche !");
-          System.out.println("Vous disposez de " + pot + " jetons dans le pot de mise. Combien souhaitez-vous miser ?");
-          mise = clavier.nextInt();      
+          chiffre = false;
+          while(!chiffre) {
+          	System.out.println("Vous disposez de " + pot + " jetons dans le pot de mise. Combien souhaitez-vous miser ?");
+          	if(clavier.hasNextInt()) {
+          		mise = clavier.nextInt();  
+          		chiffre = true;
+                  if(mise > pot) {
+                      System.out.println("La mise est supérieure à vos moyens.");
+                      chiffre = false;      
+                  }
+                  if(mise <=0 ) {
+                      System.out.println("Vous ne pouvez pas miser si peu.");
+                      chiffre = false;       
+                  }
+          	} else {
+          		System.out.println("Il fallait entrer un chiffre.");
+              	clavier.next();
+          	}
+          }
           
-          while (mise > pot) {
-            System.out.println("La mise est supérieure à vos moyens, retentez :");
-            mise = clavier.nextInt();          
-          }
-          while (mise <=0 ) {
-              System.out.println("Vous ne pouvez pas miser si peu, retentez :");
-              mise = clavier.nextInt();          
-          }
           ci = choixIA();  // reprise de la partie normalement avec choix de l'IA via la fonction aléatoire
           
-          System.out.println("Pierre (tapez 1), Feuille (tapez 2) ou Ciseaux (tapez 3) ?"); 
-          jj = clavier.nextInt();
+          chiffre = false;
+          while(!chiffre) {
+          	System.out.println("Pierre (tapez 1), Feuille (tapez 2) ou Ciseaux (tapez 3) ?");
+          	if(clavier.hasNextInt()) {
+          		jj = clavier.nextInt();  
+          		chiffre = true;
+                  if(jj<1 || jj>3) {
+                      System.out.println("Entrée incorrecte.");
+                      chiffre = false;      
+                  }
+          	} else {
+          		System.out.println("Il fallait entrer un chiffre.");
+              	clavier.next();
+          	}
+          }      
           cj = choixJoueur(jj); 
           
           System.out.println("");          
@@ -358,7 +437,7 @@ public class FLJ_PFC {
     System.out.println("");
     System.out.println("");
     
-    if (manchenum>=1) {  // possible de l'enlever ? 
+    if (manchenum>=1) {
       System.out.println("Récapitulatif de la partie :");
       
       String[] tabrecap = new String [recap.size()];
