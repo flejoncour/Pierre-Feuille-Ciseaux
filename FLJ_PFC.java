@@ -1,10 +1,9 @@
-/* Projet NFA031 - Frédéric Le Joncour
- * Il s'agit d'une version "doucement avancée" dans laquelle l'IA peut jouer aléatoirement plusieurs fois la même figure pour influencer le joueur. 
+/* CNAM Paris - Projet NFA031 - FrÃ©dÃ©ric Le Joncour
  */
 import java.util.ArrayList;
 import java.util.Scanner;
 public class FLJ_PFC {  
-// Fonction de détermination du jeu de l'IA :
+// Fonction de dÃ©termination du jeu de l'IA :
   public static String choixIA(){
     String c = " "; 
     double x = Math.random();
@@ -20,7 +19,7 @@ public class FLJ_PFC {
     return c;
   }
   
-// Fonction renvoyant le mot correspondant à l'entier entré par le joueur : 
+// Fonction renvoyant le mot correspondant Ã  l'entier entrÃ© par le joueur : 
   public static String choixJoueur(int jj){
     String cj = ""; 
     
@@ -71,12 +70,12 @@ public class FLJ_PFC {
   
   
   public static void main(String[] args) { 
-// Initialisation, paramètres de départ : 
+// Initialisation, paramÃ¨tres de dÃ©part : 
     int pot = 0;                // compteur du pot de mise
     int mise = 0;                 // compteur de la mise du joueur
     int pj = 0;                   // compteur de point(s) du joueur
-    String result = " ";          // variable contenant le résultat de la manche (gagné ou perdu)
-    ArrayList<String> recap = new ArrayList<String>();  // ArrayList contenant les données de la manche pour le récapitulatif en fin de partie
+    String result = " ";          // variable contenant le rÃ©sultat de la manche (gagnÃ© ou perdu)
+    ArrayList<String> recap = new ArrayList<String>();  // ArrayList contenant les donnÃ©es de la manche pour le rÃ©capitulatif en fin de partie
     int manchenum = 0;            // compteur de manche
     String ci = "";
     String cj = "";
@@ -92,14 +91,14 @@ public class FLJ_PFC {
     System.out.println("************************************");
     System.out.println("");
     
-    System.out.println("Combien de jetons possédez-vous (pot de mise) ?");
-    int potinit = clavier.nextInt(); // pot initial = valeur de départ du pot
+    System.out.println("Combien de jetons possÃ©dez-vous (pot de mise) ?");
+    int potinit = clavier.nextInt(); // pot initial = valeur de dÃ©part du pot
     pot = potinit;
     System.out.println("En combien de tours se jouera la partie ?");
     int tour = clavier.nextInt();   
     
     
-// Début de la partie : 
+// DÃ©but de la partie : 
     for (;;){      
       if (manchenum == 0) { 
         System.out.println("");
@@ -108,8 +107,12 @@ public class FLJ_PFC {
         mise = clavier.nextInt();      
         
         while (mise > pot) {
-          System.out.println("La mise est supérieure à vos moyens, retentez :");
+          System.out.println("La mise est supÃ©rieure Ã  vos moyens, retentez :");
           mise = clavier.nextInt();          
+        }
+        while (mise <=0 ) {
+            System.out.println("Vous ne pouvez pas miser si peu, retentez :");
+            mise = clavier.nextInt();          
         }
         
         ci = choixIA();  // ci pour choix de l'IA
@@ -134,7 +137,7 @@ public class FLJ_PFC {
           System.out.println(result + " Vous ne perdez pas votre mise.");
         }
         else if (duel == 2) {
-          result = "Gagné !";
+          result = "GagnÃ© !";
           System.out.println(result);
           pot = pot + mise;
         }
@@ -154,13 +157,13 @@ public class FLJ_PFC {
         recap.add(coupj);
         recap.add(coupia);
         recap.add(tabtourmise);
-        recap.add("Résultat de la manche : " + result);
+        recap.add("RÃ©sultat de la manche : " + result);
         recap.add(tabtourpot);
         
         manchenum = manchenum + 1;
         
         if (pot <= 0) {
-          System.out.println("Vous n'avez plus de jetons, désolé.");
+          System.out.println("Vous n'avez plus de jetons, dÃ©solÃ©.");
           break; 
         }
         
@@ -176,7 +179,7 @@ public class FLJ_PFC {
         
         
         if (x<=0.2) {
-          // si x<=0.2 alors on ne tire plus au sort le jeu de l'IA, mais elle va conserver le même jeu pendant plusieurs tours pour le changer imprévisiblement
+          // si x<=0.2 alors on ne tire plus au sort le jeu de l'IA, mais elle va conserver le mÃªme jeu pendant plusieurs tours pour le changer imprÃ©visiblement
           int bouclerepet = 0; 
           if ((x<=0.1333) && (x>0.0666)){
             bouclerepet = 1;
@@ -193,11 +196,15 @@ public class FLJ_PFC {
             mise = clavier.nextInt();      
             
             while (mise > pot) {
-              System.out.println("La mise est supérieure à vos moyens, retentez :");
+              System.out.println("La mise est supÃ©rieure Ã  vos moyens, retentez :");
               mise = clavier.nextInt();          
             }
+            while (mise <=0 ) {
+                System.out.println("Vous ne pouvez pas miser si peu, retentez :");
+                mise = clavier.nextInt();          
+            }
             
-            // ici on ne tire plus le jeu de l'IA grâce à la fonction, mais "ci" conserve la valeur du tour précédent
+            // ici on ne tire plus le jeu de l'IA grÃ¢ce Ã  la fonction, mais "ci" conserve la valeur du tour prÃ©cÃ©dent
             System.out.println("Pierre (tapez 1), Feuille (tapez 2) ou Ciseaux (tapez 3) ?"); 
             jj = clavier.nextInt();
             cj = choixJoueur(jj);
@@ -218,7 +225,7 @@ public class FLJ_PFC {
               System.out.println(result + " Vous ne perdez pas votre mise.");
             }
             else if (duel == 2) {
-              result = "Gagné !";
+              result = "GagnÃ© !";
               System.out.println(result);
               pot = pot + mise;
             }
@@ -238,13 +245,13 @@ public class FLJ_PFC {
             recap.add(coupj);
             recap.add(coupia);
             recap.add(tabtourmise);
-            recap.add("Résultat de la manche : " + result);
+            recap.add("RÃ©sultat de la manche : " + result);
             recap.add(tabtourpot);
             
             manchenum = manchenum + 1;
             
             if (pot <= 0) {
-              System.out.println("Vous n'avez plus de jetons, désolé.");
+              System.out.println("Vous n'avez plus de jetons, dÃ©solÃ©.");
               break; 
             }
             
@@ -253,7 +260,7 @@ public class FLJ_PFC {
               break;
             }
           }
-          if (pot <= 0) { // utile pour sortir entièrement de la boucle du tour, car au stade précédent, nous sommes pris dans 2 boucles (manchenum>=1 et x>0,2)
+          if (pot <= 0) { // utile pour sortir entiÃ¨rement de la boucle du tour, car au stade prÃ©cÃ©dent, nous sommes pris dans 2 boucles (manchenum>=1 et x>0,2)
             break; 
           }
         }
@@ -266,11 +273,14 @@ public class FLJ_PFC {
           mise = clavier.nextInt();      
           
           while (mise > pot) {
-            System.out.println("La mise est supérieure à vos moyens, retentez :");
+            System.out.println("La mise est supÃ©rieure Ã  vos moyens, retentez :");
             mise = clavier.nextInt();          
           }
-          
-          ci = choixIA();  // reprise de la partie normalement avec choix de l'IA via la fonction aléatoire
+          while (mise <=0 ) {
+              System.out.println("Vous ne pouvez pas miser si peu, retentez :");
+              mise = clavier.nextInt();          
+          }
+          ci = choixIA();  // reprise de la partie normalement avec choix de l'IA via la fonction alÃ©atoire
           
           System.out.println("Pierre (tapez 1), Feuille (tapez 2) ou Ciseaux (tapez 3) ?"); 
           jj = clavier.nextInt();
@@ -292,7 +302,7 @@ public class FLJ_PFC {
             System.out.println(result + " Vous ne perdez pas votre mise.");
           }
           else if (duel == 2) {
-            result = "Gagné !";
+            result = "GagnÃ© !";
             System.out.println(result);
             pot = pot + mise;
           }
@@ -312,13 +322,13 @@ public class FLJ_PFC {
           recap.add(coupj);
           recap.add(coupia);
           recap.add(tabtourmise);
-          recap.add("Résultat de la manche : " + result);
+          recap.add("RÃ©sultat de la manche : " + result);
           recap.add(tabtourpot);
           
           manchenum = manchenum + 1;
           
           if (pot <= 0) {
-            System.out.println("Vous n'avez plus de jetons, désolé.");
+            System.out.println("Vous n'avez plus de jetons, dÃ©solÃ©.");
             break; 
           }
           
@@ -327,7 +337,7 @@ public class FLJ_PFC {
             break;
           }
         }
-        if (pot <= 0) {   // utile pour sortir entièrement de la boucle du tour, car au stade précédent, nous sommes pris dans 2 boucles (manchenum>=1 et x>0,2)
+        if (pot <= 0) {   // utile pour sortir entiÃ¨rement de la boucle du tour, car au stade prÃ©cÃ©dent, nous sommes pris dans 2 boucles (manchenum>=1 et x>0,2)
           break; 
         }
       }
@@ -335,11 +345,11 @@ public class FLJ_PFC {
       
       
     }
-    
+    clavier.close();
     System.out.println("Fin de partie !");
     if (pot > potinit) {
       System.out.println("Vous disposez de " + pot + " jetons dans votre pot de mise, vous repartez donc avec " 
-                                + (pot - potinit) + " jetons de plus en poche, félicitations.");
+                                + (pot - potinit) + " jetons de plus en poche, fÃ©licitations.");
     }
     else if (pot < potinit) {
       System.out.println("Vous disposez de " + pot + " jetons dans votre pot de mise, vous avez donc perdu " + (potinit - pot) + " jetons, dommage.");
@@ -349,7 +359,7 @@ public class FLJ_PFC {
     System.out.println("");
     
     if (manchenum>=1) {  // possible de l'enlever ? 
-      System.out.println("Récapitulatif de la partie :");
+      System.out.println("RÃ©capitulatif de la partie :");
       
       String[] tabrecap = new String [recap.size()];
       tabrecap = recap.toArray(tabrecap);
