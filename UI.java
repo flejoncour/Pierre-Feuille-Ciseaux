@@ -23,7 +23,7 @@ public class UI extends JFrame{
 	JScrollPane sp;	
 	public UI() {
 		console = new JTextArea();
-		console.setEditable(false); // pas modifiable.
+		console.setEditable(false);
 		sp = new JScrollPane(console);
 		pierre= new JButton("Pierre");
 		feuille = new JButton("Feuille");

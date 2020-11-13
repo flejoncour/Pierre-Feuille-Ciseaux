@@ -9,7 +9,6 @@ public class Partie {
 	public Partie() {
 		recapPartie = new ArrayList<Manche>();
 		joueur = new Joueur("");
-		//afficherIntro();
 	}
 	Joueur getJoueur() {
 		return this.joueur;
