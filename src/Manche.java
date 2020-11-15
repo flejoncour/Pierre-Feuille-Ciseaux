@@ -1,5 +1,3 @@
-package pfc;
-
 public class Manche {
 	private String choixIA, choixJoueur, resultat, commentaire;
 	private int numero, mise;

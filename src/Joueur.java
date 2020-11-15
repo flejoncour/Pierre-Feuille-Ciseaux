@@ -1,5 +1,3 @@
-package pfc;
-
 public class Joueur {
 	private int pot, points, potLePlusHaut;
 	private String login;
