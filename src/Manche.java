@@ -1,8 +1,8 @@
 package pfc;
 
 public class Manche {
-	String choixIA, choixJoueur, resultat, commentaire;
-	int numero, mise;
+	private String choixIA, choixJoueur, resultat, commentaire;
+	private int numero, mise;
 	public Manche(int numero) {
 		this.numero = numero; 
 	}
@@ -18,18 +18,6 @@ public class Manche {
 	    	this.choixIA = "Ciseaux";
 	    }
 	}
-	String choixJoueur(int jj){
-	    if (jj == 1) {
-	    	this.setChoixJoueur("Pierre");
-	    }
-	    else if (jj == 2) {
-	    	this.setChoixJoueur("Feuille");
-	    }
-	    else {
-	    	this.setChoixJoueur("Ciseaux");
-	    }
-	    return this.choixJoueur;
-	} 
 	int duel(String choixIA, String choixJoueur){
 	    int pj = 0;
 	    this.resultat = "Perdu";
@@ -55,6 +43,7 @@ public class Manche {
 	String getChoixIA() {
 		return this.choixIA;
 	}
+	// fonction utile lors de la répétition volontaire du dernier coup joué
 	void setChoixIA(String choix) {
 		this.choixIA = choix;
 	}

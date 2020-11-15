@@ -13,19 +13,8 @@ import javax.swing.JTextArea;
 
 public class UI extends JFrame{
 	private JPanel panel;
-	private JButton pierre;
-	private JButton feuille;
-	private JButton ciseaux;
-	private JButton recommencer;
-	private JLabel miseLettres;
-	private JLabel miseChiffres;
-	private JLabel potLettre;
-	private JLabel potChiffre;
-	private JLabel pointsChiffres;
-	private JLabel pointsLettres;
-	private JLabel manchesChiffres;
-	private JLabel manchesLettres;
-	private JLabel nomJoueur;
+	private JButton pierre, feuille, ciseaux, recommencer;
+	private JLabel miseLettres, miseChiffres, potLettre, potChiffre, pointsChiffres, pointsLettres, manchesChiffres, manchesLettres, nomJoueur;
 	private JTextArea console;
 	private JScrollPane sp;	
 	private Font fontConsole;
@@ -50,6 +39,8 @@ public class UI extends JFrame{
 		mettreEnPage();
 	}
 	private void mettreEnPage() {
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
 		this.setTitle("Pierre-Feuille-Ciseaux");
 		this.setPreferredSize(new Dimension(660, 400));
 		this.setResizable(false);
@@ -92,34 +83,34 @@ public class UI extends JFrame{
 		this.add(panel);
 		this.pack();
 	}
-	public JButton getPierre() {
+	JButton getPierre() {
 		return pierre;
 	}
-	public JButton getFeuille() {
+	JButton getFeuille() {
 		return feuille;
 	}
-	public JButton getCiseaux() {
+	JButton getCiseaux() {
 		return ciseaux;
 	}
-	public JButton getRecommencer() {
+	JButton getRecommencer() {
 		return recommencer;
 	}
-	public void setPot(int pot) {
+	void setPot(int pot) {
 		this.potChiffre.setText(String.valueOf(pot));
 	}
-	public void setMise(int mise) {
+	void setMise(int mise) {
 		this.miseChiffres.setText(String.valueOf(mise));
 	}
-	public void setPoints(int points) {
+	void setPoints(int points) {
 		this.pointsChiffres.setText(String.valueOf(points));
 	}
-	public void setManches(int manches) {
+	void setManches(int manches) {
 		this.manchesChiffres.setText(String.valueOf(manches));
 	}
-	public void setConsole(String texte) {
+	void setConsole(String texte) {
 		this.console.setText(texte);
 	}
-	public void setNomJoueur(String nom) {
+	void setNomJoueur(String nom) {
 		this.nomJoueur.setText(nom);
 	}
 	void nouvellePartie() { 

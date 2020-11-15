@@ -1,2 +1,4 @@
-Application graphique d'un jeu de Pierre-Feuille-Ciseaux.
-Projet réalisé dans le cadre de l'UE NFA031 du CNAM de Paris. 
+Projet d'application graphique d'un jeu de Pierre-Feuille-Ciseaux, 
+réalisé dans le cadre de l'UE NFA031 du CNAM de Paris. 
+
+"L'objectif du projet est de créer une version du jeu Pierre-Feuille-Ciseau pour laquelle le joueur mise à chaque tour sur ses chances de gagner. Le joueur joue contre une IA pendant un nombre limité de tours, et peut miser une certaine somme à hauteur du contenu d'un pot de mise, qui se vide et se remplit au fur-et-à-mesure des échecs ou succès du joueur. A la fin de la partie, un tableau récapitule pour chaque tour de jeu, le résultat de la partie : les figures jouées, aussi bien par l'IA que par le joueur ; qui est le gagnant ; la somme misée par le joueur ; la somme restante du pot de mise. On peut y ajouter un comportement biaisé de l'IA qui tient compte des actions du joueur pour le piéger. Par exemple, pour pousser le joueur à réaliser une forte mise, l'IA peut présenter deux voire trois fois la même figure."

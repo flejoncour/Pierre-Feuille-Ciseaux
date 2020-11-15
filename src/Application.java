@@ -9,11 +9,11 @@ import javax.swing.JFrame;
 
 public class Application {
 	private UI ui;
-	FenetrePopUp popUpMise;
-	FenetrePopUp popUpLogin;
-	Partie partie;
-	boolean cliqueRecommencer;
-	int bouclerepet;
+	private FenetrePopUp popUpMise;
+	private FenetrePopUp popUpLogin;
+	private Partie partie;
+	private boolean cliqueRecommencer;
+	private int bouclerepet;
 	public Application() throws InterruptedException, IOException {	
 		ui = new UI();
 		popUpLogin = new FenetrePopUp("login");
@@ -22,12 +22,11 @@ public class Application {
 		activer();
 		activerMise();
 		activerLogin();
-		ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ui.setVisible(true);
 		ui.setNomJoueur("");
 		popUpLogin.setLocationRelativeTo(ui);
 		popUpLogin.setVisible(true);
 		while(partie.getJoueur().getLogin()=="") {
+			// on attend que le joueur rentre son nom
 			Thread.sleep(1000);
 		}
 		ui.setPot(partie.getJoueur().getPot());
@@ -39,21 +38,22 @@ public class Application {
 		ui.setConsole("*****************************************\n*               PIERRE - FEUILLE - CISEAUX              *\n*****************************************\n\n\n\nVous disposez de "  + partie.getJoueur().getPot() + " jetons dans le pot de mise.");
 		Thread.sleep(4000);
 		while(partie.getJoueur().getPot()>0) {
-			Manche nouvelleManche = new Manche(partie.recapPartie.size()+1);
+			Manche nouvelleManche = new Manche(partie.getRecapPartie().size()+1);
 			partie.setManche(nouvelleManche);
 			popUpMise.setLocationRelativeTo(ui);
 			popUpMise.setVisible(true);
 			while(partie.getManche().getMise()==0) {
+				// on attend que le joueur rentre sa mise
 				Thread.sleep(1000);
 			}
 			ui.setMise(partie.getManche().getMise());
 			ui.setConsole("Pierre, Feuille ou Ciseaux ?");
 			bouclerepet = partie.nouvelleManche(bouclerepet, nouvelleManche);
-			ui.setConsole(partie.recapPartie.get(partie.recapPartie.size()-1).getRecap(partie.getJoueur().getLogin()));
+			ui.setConsole(partie.getRecapPartie().get(partie.getRecapPartie().size()-1).getRecap(partie.getJoueur().getLogin()));
 			Thread.sleep(2000);
 			ui.setPot(partie.getJoueur().getPot());
 			ui.setPoints(partie.getJoueur().getPoints());
-			ui.setManches(partie.recapPartie.size());
+			ui.setManches(partie.getRecapPartie().size());
 			ui.setMise(0);
 			if(partie.getJoueur().getPot()==0) {
 				ui.setConsole("Terminé ! Vous n'avez plus de pot de mise.");
@@ -68,7 +68,6 @@ public class Application {
 			}
 		}		
 	}
-
 	void activer() {
 		ui.getPierre().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -133,7 +132,7 @@ public class Application {
 				ui.nouvellePartie();
 				partie.nouvellePartie();
 				ui.setPot(partie.getJoueur().getPot());		// pas accès au pot du joueur depuis l'UI en elle-même
-				bouclerepet = 0;	// si recommence alors qu'une boucle est lancée, provoque une erreur out of bounds en tentant de récupérer le jeu de la dernière manche (qui n'existe plus maintenant)
+				bouclerepet = 0;					// si recommence alors qu'une boucle est lancée, provoque une erreur out of bounds en tentant de récupérer le jeu de la dernière manche (qui n'existe plus maintenant puisque la partie est relancée de 0)
 				cliqueRecommencer = true;
 			}
 		}
