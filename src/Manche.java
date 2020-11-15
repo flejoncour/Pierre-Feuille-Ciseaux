@@ -1,6 +1,8 @@
+package pfc;
+
 public class Manche {
 	String choixIA, choixJoueur, resultat, commentaire;
-	int numero;
+	int numero, mise;
 	public Manche(int numero) {
 		this.numero = numero; 
 	}
@@ -59,8 +61,14 @@ public class Manche {
 	int getNumero() {
 		return this.numero;
 	}
-	String getRecap() {
-		return "" + this.numero + "E MANCHE :\n" + "Joueur : " + this.choixJoueur + "\nComp : " + this.choixIA + "\n" + this.resultat + this.commentaire;
+	int getMise() {
+		return this.mise;
+	}
+	void setMise(int mise) {
+		this.mise = mise;
+	}
+	String getRecap(String nomJoueur) {
+		return "" + this.numero + "E MANCHE :\n" + nomJoueur + " : " + this.choixJoueur + "\nComp : " + this.choixIA + "\nMise : " + this.mise + "\n" + this.resultat + this.commentaire;
 	}
 	
 }

@@ -1,11 +1,14 @@
+package pfc;
+
+import java.io.IOException;
+
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 public class PFC_main {
-	public static void main(String[] args) throws InterruptedException, UnsupportedLookAndFeelException {
+	public static void main(String[] args) throws InterruptedException, UnsupportedLookAndFeelException, IOException {
 		UIManager.setLookAndFeel(new NimbusLookAndFeel());
-		Application app = new Application();
+		Application essai = new Application();
 	}
-
 }
